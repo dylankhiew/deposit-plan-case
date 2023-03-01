@@ -12,9 +12,4 @@ export namespace app {
     portfolioType: PortfolioType;
     allocations: DepositPlanAllocation[];
   }
-
-  interface FundAllocationResult {
-    planType: DepositPlanType;
-    amount: number;
-  }
 }

@@ -1,77 +1,55 @@
 'use strict';
 
+import { SAMPLE_DEPOSIT_PLANS, SAMPLE_FUND_DEPOSITS } from './constants/depositPlanConstants';
 import { app } from './typings';
-import { getSumOfFunds } from './utils/depositPlanUtils';
+import {
+  checkPrerequisites, findDepositPlan, getSumOfFundDeposits,
+} from './utils/depositPlanUtils';
 
-// Pseudocode
 /**
- * a function that accepts an array of deposit plan (one-time/monthly) and fund deposits
- * array can contain at max 2 objects
- * the array is a mixture of 1 one-time plan and/or one monthly deposit plan
- * DepositPlan must have portflio (can be either HighRisk or Retirement), as well as amount
- * output should be allocation of funds based on the customers portfolio
- * all funds must be distributed
+ * 
+ * @param depositPlans a list of deposit plans (at max two, with one each (ONE_TIME, MONTHLY))
+ * @param fundDeposits a list of fund deposits initated by the user
+ * @returns a list of allocation that shows the plan type along with the amount
  */
-
-const sampleFundDeposits: number[] = [10500, 100];
-
-const sampleDepositPlan: app.DepositPlan[] = [
-  {
-    portfolioType: "ONE_TIME",
-    allocations: [
-      {
-        planType: 'HIGH_RISK',
-        amount: 10000,
-      },
-      {
-        planType: 'RETIREMENT',
-        amount: 500,
-      },
-    ],
-  },
-  {
-    portfolioType: "MONTHLY",
-    allocations: [
-      {
-        planType: 'HIGH_RISK',
-        amount: 0,
-      },
-      {
-        planType: 'RETIREMENT',
-        amount: 100,
-      }
-    ],
-  },
-];
-
-const getPortfolioFunds = (
-  depositPlans: app.DepositPlan[],
-  planType: app.DepositPlanType,
-) => {
-  // TO-DO: Remove chaining
-  return depositPlans.map((depositPlan) => {
-    return depositPlan.allocations.find((allocation) => allocation.planType === planType)?.amount ?? 0;
-  });
-};
-
-// Happy case first
 const generateFundsAllocation = (
   depositPlans: app.DepositPlan[],
   fundDeposits: number[],
-): app.FundAllocationResult[] => {
-  let totalHighRiskAllocation: number = 0;
-  let totalRetirementAllocation: number = 0;
-  let sumOfFunds = getSumOfFunds(fundDeposits);
+): app.DepositPlanAllocation[] => {
+  let allocationResults: app.DepositPlanAllocation[] = [];
 
-  while(sumOfFunds !== 0) {
-    // Check what funds need minus
-    // Add it to the result
-    // minus from total funds
+  const sumOfFunds = getSumOfFundDeposits(fundDeposits);
+
+  const isPrerequisiteFufilled = checkPrerequisites(depositPlans, sumOfFunds);
+
+  if (!isPrerequisiteFufilled) {
+    return allocationResults;
   }
 
-  const result: app.FundAllocationResult[] = [];
+  depositPlans.forEach((depositPlan) => {
+    depositPlan.allocations.forEach((allocation) => {
+      // Check if the allocation type is available
+      const existingAllocation: app.DepositPlanAllocation | undefined = allocationResults.find((result) => {
+        return result.planType === allocation.planType;
+      });
 
-  return result;
+      if (!existingAllocation) {
+        // Add the allocation in if it does not exist
+        allocationResults.push(allocation);
+      } else {
+        // Get the index and sum up the amount of the existing allocation
+        const existingAllocationIndex : number = allocationResults.findIndex((result) => {
+          return result.planType === allocation.planType;
+        });
+        allocationResults[existingAllocationIndex] = {
+          ...existingAllocation,
+          amount: existingAllocation.amount + allocation.amount,
+        }
+      }
+    })
+  })
+
+  return allocationResults;
 };
 
-console.log(generateFundsAllocation(sampleDepositPlan, sampleFundDeposits));
+console.log(generateFundsAllocation(SAMPLE_DEPOSIT_PLANS, SAMPLE_FUND_DEPOSITS));
