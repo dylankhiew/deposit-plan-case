@@ -16,7 +16,7 @@ const generateFundsAllocation = (
   depositPlans: app.DepositPlan[],
   fundDeposits: number[],
 ): app.DepositPlanAllocation[] => {
-  let allocationResults: app.DepositPlanAllocation[] = [];
+  const allocationResults: app.DepositPlanAllocation[] = [];
 
   const sumOfFunds = getSumOfFundDeposits(fundDeposits);
 
