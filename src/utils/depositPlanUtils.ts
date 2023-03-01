@@ -1,3 +1,4 @@
+import { DEPOSIT_PLAN_ALLOWED_AMOUNT } from '../constants/depositPlanConstants';
 import { app } from '../typings';
 
 const getSumOfFundDeposits = (funds: number[]): number => {
@@ -13,18 +14,10 @@ const checkPrerequisites = (
   sumOfFunds: number,
 ): boolean => {
   const hasSufficientDepositPlans = Boolean(depositPlans.length);
-  const hasAtMaxTwoDepositPlans = depositPlans.length <= 2;
+  const isDepositPlansWithinLimit = depositPlans.length <= DEPOSIT_PLAN_ALLOWED_AMOUNT;
   const hasFunds = Boolean(sumOfFunds);
 
-  return hasSufficientDepositPlans && hasAtMaxTwoDepositPlans && hasFunds;
+  return hasSufficientDepositPlans && isDepositPlansWithinLimit && hasFunds;
 };
 
-// TO-DO: Add test spec
-const findDepositPlan = (
-  depositPlans: app.DepositPlan[],
-  portfolioType: app.PortfolioType,
-): app.DepositPlan | undefined => depositPlans.find((depositPlan) => {
-  return depositPlan.portfolioType === portfolioType;
-});
-
-export { getSumOfFundDeposits, checkPrerequisites, findDepositPlan };
+export { getSumOfFundDeposits, checkPrerequisites };

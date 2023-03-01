@@ -2,9 +2,7 @@
 
 import { SAMPLE_DEPOSIT_PLANS, SAMPLE_FUND_DEPOSITS } from './constants/depositPlanConstants';
 import { app } from './typings';
-import {
-  checkPrerequisites, findDepositPlan, getSumOfFundDeposits,
-} from './utils/depositPlanUtils';
+import { checkPrerequisites, getSumOfFundDeposits } from './utils/depositPlanUtils';
 
 /**
  * 

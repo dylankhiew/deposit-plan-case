@@ -1,5 +1,7 @@
 import { app } from '../typings';
 
+export const DEPOSIT_PLAN_ALLOWED_AMOUNT = 2;
+
 export const SAMPLE_FUND_DEPOSITS: number[] = [10500, 100];
 
 export const SAMPLE_DEPOSIT_PLANS: app.DepositPlan[] = [
