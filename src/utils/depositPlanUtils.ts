@@ -8,7 +8,6 @@ const getSumOfFundDeposits = (funds: number[]): number => {
   ) => totalFunds + fundAmount, 0);
 };
 
-// TO-DO: Add test spec
 const checkPrerequisites = (
   depositPlans: app.DepositPlan[],
   sumOfFunds: number,
