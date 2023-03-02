@@ -6,6 +6,26 @@ Replit: [here](https://replit.com/@dylankhiew/deposit-plan-case)
 
 ---
 
+### Running it Locally
+
+1. After cloning the repo, we should install the dependencies:
+
+```
+npm install
+```
+
+2. Then, we can get it running:
+```
+npm run start:dev
+```
+
+3. To run the test script, we can use:
+```
+npm run test
+```
+
+---
+
 ### How Does it Work?
 Below shows process of the method from the input it accepts, logic as well as the expected output.
 
@@ -68,7 +88,7 @@ Once the calculations are done, the reuslts array that was used to store the pla
 
 1. I was doubting to add a check for excessive fund deposits, but using the app previously, I noticed that they would not simply allow funds more than the stated amount to be approved (e.g Amount that we state is RM100, but we added RM200. It would be rejected as it does not match the amount and reference code).
 2. Initially, the method was catered for only two portfolios but noticed that the app itself offered a wide variety of portfolios and decided to rework the thinking to allow for more portfolios (eventhough its just two in the example).
-
+3. Pardon the commits as suddenly Clover coverage decided to take over the repo. Might have added it in wrongly during the Jest addition.
 
 
 
