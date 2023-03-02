@@ -50,4 +50,29 @@ const generateFundsAllocation = (
   return allocationResults;
 };
 
-console.log(generateFundsAllocation(SAMPLE_DEPOSIT_PLANS, SAMPLE_FUND_DEPOSITS));
+console.log('Scenario 1: Happy case');
+console.log('Funds: ', SAMPLE_FUND_DEPOSITS);
+console.log('Deposit Plans: ', JSON.stringify(SAMPLE_DEPOSIT_PLANS, null, 4));
+console.log('Output:', JSON.stringify(
+  generateFundsAllocation(SAMPLE_DEPOSIT_PLANS, SAMPLE_FUND_DEPOSITS),
+  null,
+  4,
+));
+console.log('=============================');
+console.log('Scenario 2: When fund deposits is empty');
+console.log('Funds: ', []);
+console.log('Deposit Plans: ', JSON.stringify(SAMPLE_DEPOSIT_PLANS, null, 4));
+console.log('Output:', JSON.stringify(
+  generateFundsAllocation(SAMPLE_DEPOSIT_PLANS, []),
+  null,
+  4,
+));
+console.log('=============================');
+console.log('Scenario 3: When deposit plans is empty');
+console.log('Funds: ', SAMPLE_FUND_DEPOSITS);
+console.log('Deposit Plans: ', JSON.stringify([], null, 4));
+console.log('Output:', JSON.stringify(
+  generateFundsAllocation([], SAMPLE_FUND_DEPOSITS),
+  null,
+  4,
+));
