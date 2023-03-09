@@ -10,7 +10,7 @@ import { checkPrerequisites, getSumOfFundDeposits } from './utils/depositPlanUti
  * @param fundDeposits a list of fund deposits initated by the user
  * @returns a list of allocation that shows the plan type along with the amount
  */
-const generateFundsAllocation = (
+export const generateFundsAllocation = (
   depositPlans: app.DepositPlan[],
   fundDeposits: number[],
 ): app.DepositPlanAllocation[] => {
